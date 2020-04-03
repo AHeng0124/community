@@ -34,7 +34,7 @@ private UserMapper userMapper;
         List<Question> questions = questionMapper.list(offset,size);
         List<QuestionDto> questionDtoList =new ArrayList<>();
         for (Question question : questions){
-            User user = userMapper.findById(question.getCreator());
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDto questionDto = new QuestionDto();
             BeanUtils.copyProperties(question,questionDto);
             questionDto.setUser(user);
@@ -58,7 +58,7 @@ private UserMapper userMapper;
         List<Question> questions = questionMapper.listByUserId(userId,offset,size);
         List<QuestionDto> questionDtoList =new ArrayList<>();
         for (Question question : questions){
-            User user = userMapper.findById(question.getCreator());
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDto questionDto = new QuestionDto();
             BeanUtils.copyProperties(question,questionDto);
             questionDto.setUser(user);
@@ -73,7 +73,7 @@ private UserMapper userMapper;
         Question question = questionMapper.getById(id);
         QuestionDto questionDto = new QuestionDto();
         BeanUtils.copyProperties(question,questionDto);
-        User user = userMapper.findById(question.getCreator());
+        User user = userMapper.selectByPrimaryKey(question.getCreator());
         questionDto.setUser(user);
         return questionDto;
     }
